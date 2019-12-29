@@ -8,7 +8,7 @@ def gb_convert(value):
     return value/1024/1024/1024*8
 
 def stats(value):
-    print(f"{gb_convert(value):0.3f}")
+    print(f"{(gb_convert(value)*100):0.3f} MB/s")
 
 old_value = 0    
 seconds_idle = 0
