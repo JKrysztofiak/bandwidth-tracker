@@ -4,24 +4,24 @@ import os
 import sys
 
 
-def gb_convert(value):
-    return value/1024/1024/1024*8
+def convert_MB(value):
+    return value/1024/1024
 
 def stats(value):
-    print(f"{(gb_convert(value)*100):0.3f} MB/s")
+    print(f"{convert_MB(value):0.3f} MB/s")
 
 old_value = 0    
 seconds_idle = 0
 
 while True:
-    new_value = psutil.net_io_counters().bytes_sent + psutil.net_io_counters().bytes_recv
+    new_value = psutil.net_io_counters().bytes_recv
 
     diff = new_value - old_value
 
     if old_value:
         stats(diff)
 
-    if gb_convert(diff) < 0.001:
+    if convert_MB(diff) < 0.001:
         seconds_idle+=1
         print(f"seconds idle: ",seconds_idle)
     else:
